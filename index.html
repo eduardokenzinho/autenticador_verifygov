@@ -71,7 +71,7 @@
         position: absolute;
         inset: 0;
         border-radius: 50%;
-        background: conic-gradient(var(--green) 0deg var(--progress, 216deg), var(--mint) var(--progress, 216deg) 360deg);
+        background: conic-gradient(var(--green) 0deg var(--progress, 360deg), var(--mint) var(--progress, 360deg) 360deg);
         animation: pulse 1.6s ease-in-out infinite;
       }
 
@@ -292,9 +292,9 @@
   <body>
     <main>
       <section class="panel screen screen-loading is-active" aria-live="polite" aria-hidden="false">
-        <div class="progress-wrap" id="progressWrap" aria-label="Sessenta por cento concluído" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="60">
+        <div class="progress-wrap" id="progressWrap" aria-label="Cem por cento concluído" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100">
           <div class="progress-ring" id="progressRing"></div>
-          <div class="progress-value" id="progressValue">60%</div>
+          <div class="progress-value" id="progressValue">100%</div>
         </div>
         <div class="accent-line" aria-hidden="true"></div>
         <h1>Analisando sua conexão</h1>
@@ -423,10 +423,10 @@
 
         function tick(now) {
           const elapsed = now - startedAt;
-          const progress = Math.min(60, (elapsed / loadingDuration) * 60);
+          const progress = Math.min(100, (elapsed / loadingDuration) * 100);
           updateProgress(progress);
 
-          if (progress < 60) {
+          if (progress < 100) {
             window.requestAnimationFrame(tick);
           } else {
             showSuccess();
@@ -440,7 +440,7 @@
         showSuccess();
       } else if (screen === "loading") {
         showScreen("loading");
-        updateProgress(60);
+        updateProgress(100);
       } else {
         startLoading();
       }

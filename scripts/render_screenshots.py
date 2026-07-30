@@ -112,11 +112,11 @@ def draw_loading():
 
     ring_box = (855, 338, 1065, 548)
     draw.ellipse(ring_box, fill=MINT)
-    draw.pieslice(ring_box, start=-90, end=126, fill=GREEN)
+    draw.pieslice(ring_box, start=-90, end=270, fill=GREEN)
     draw.ellipse((873, 356, 1047, 530), fill=WHITE)
 
     selected = font(36, bold=True)
-    text = "60%"
+    text = "100%"
     bbox = draw.textbbox((0, 0), text, font=selected)
     draw.text(((WIDTH - (bbox[2] - bbox[0])) / 2, 419), text, font=selected, fill=GREEN)
 
