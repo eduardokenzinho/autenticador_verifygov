@@ -79,12 +79,10 @@ def draw_panel(image, panel_h):
     shadow = Image.new("RGBA", (WIDTH, HEIGHT), (0, 0, 0, 0))
     shadow_draw = ImageDraw.Draw(shadow)
     shadow_draw.rounded_rectangle((x, y + 22, x + panel_w, y + panel_h + 22), radius=38, fill=(0, 148, 64, 30))
-    shadow = shadow.filter(ImageFilter.GaussianBlur(34))
-    image.alpha_composite(shadow)
+    image.alpha_composite(shadow.filter(ImageFilter.GaussianBlur(34)))
 
     draw = ImageDraw.Draw(image)
     draw.rounded_rectangle((x, y, x + panel_w, y + panel_h), radius=38, fill=WHITE)
-    return x, y, panel_w, panel_h
 
 
 def draw_footer(draw, base_y):
@@ -151,10 +149,10 @@ def draw_success():
     draw.ellipse((888, 230, 1032, 374), fill=MINT_STRONG)
     draw_shield(draw, 960, 302, 0.64, "#35b86c")
 
-    center_text(draw, "Conexão segura", 420, INK, 38, bold=True)
+    center_text(draw, "Atendimento disponível", 420, INK, 38, bold=True)
     center_text(
         draw,
-        "Sua conexão foi verificada e está protegida. Você já pode falar com o atendimento.",
+        "Seu acesso está pronto. Você já pode falar com o atendimento.",
         486,
         MUTED,
         24,
@@ -165,11 +163,11 @@ def draw_success():
     draw.rounded_rectangle((777, 591, 1143, 645), radius=27, fill="#edf8f1")
     draw_shield(draw, 811, 616, 0.18, None, GREEN)
     selected = font(20, bold=True)
-    draw.text((842, 606), "Conexão criptografada", font=selected, fill="#34b76c")
+    draw.text((842, 606), "Conexão protegida", font=selected, fill="#34b76c")
 
     draw.rounded_rectangle((792, 662, 1128, 716), radius=27, fill="#edf8f1")
     draw.line((821, 688, 831, 698, 850, 675), fill="#34b76c", width=3)
-    draw.text((874, 677), "Certificado válido", font=selected, fill="#34b76c")
+    draw.text((874, 677), "Atendimento online", font=selected, fill="#34b76c")
 
     button = (634, 758, 1286, 850)
     shadow = Image.new("RGBA", (WIDTH, HEIGHT), (0, 0, 0, 0))
@@ -178,7 +176,7 @@ def draw_success():
     image.alpha_composite(shadow.filter(ImageFilter.GaussianBlur(16)))
     draw.rounded_rectangle(button, radius=30, fill=GREEN)
 
-    text = "Falar com atendimento"
+    text = "Ir para atendimento"
     selected = font(28, bold=True)
     text_w = draw.textlength(text, font=selected)
     draw.text((WIDTH / 2 - text_w / 2 - 22, 790), text, font=selected, fill=WHITE)

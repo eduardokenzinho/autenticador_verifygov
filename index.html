@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#009440">
-    <title>Atendimento Seguro</title>
+    <title>Atendimento seguro</title>
     <style>
       :root {
         --green: #009440;
@@ -38,10 +38,10 @@
 
       main {
         width: 100%;
-        min-height: 100vh;
+        min-height: 100svh;
         display: grid;
         place-items: center;
-        padding: 28px;
+        padding: clamp(18px, 4vw, 40px);
       }
 
       .panel {
@@ -71,8 +71,7 @@
         position: absolute;
         inset: 0;
         border-radius: 50%;
-        background:
-          conic-gradient(var(--green) 0deg 216deg, var(--mint) 216deg 360deg);
+        background: conic-gradient(var(--green) 0deg var(--progress, 216deg), var(--mint) var(--progress, 216deg) 360deg);
         animation: pulse 1.6s ease-in-out infinite;
       }
 
@@ -112,7 +111,6 @@
         max-width: 590px;
         font-size: clamp(32px, 5vw, 42px);
         line-height: 1.12;
-        letter-spacing: 0;
       }
 
       p {
@@ -157,7 +155,7 @@
         padding: 22px 28px;
         border-radius: 30px;
         color: var(--white);
-        background: linear-gradient(135deg, var(--green), #20b15a);
+        background: var(--green);
         box-shadow: 0 16px 30px rgba(0, 148, 64, 0.24);
         text-decoration: none;
         font-size: clamp(24px, 4vw, 28px);
@@ -169,7 +167,8 @@
       .cta:hover {
         transform: translateY(-2px);
         box-shadow: 0 20px 36px rgba(0, 148, 64, 0.28);
-        outline: none;
+        outline: 3px solid rgba(255, 203, 0, 0.75);
+        outline-offset: 4px;
       }
 
       .arrow {
@@ -204,6 +203,12 @@
         text-decoration: none;
       }
 
+      .links a:hover,
+      .links a:focus-visible {
+        color: var(--blue);
+        text-decoration: underline;
+      }
+
       .accent-line {
         width: 112px;
         height: 7px;
@@ -219,6 +224,10 @@
         display: flex;
       }
 
+      .screen[hidden] {
+        display: none;
+      }
+
       @keyframes pulse {
         0%,
         100% {
@@ -232,12 +241,13 @@
 
       @media (max-width: 540px) {
         main {
-          padding: 18px;
+          padding: 14px;
         }
 
         .panel {
-          min-height: 560px;
-          gap: 24px;
+          min-height: 0;
+          gap: 22px;
+          padding: 34px 22px;
           border-radius: 28px;
         }
 
@@ -252,21 +262,39 @@
         .cta {
           min-height: 78px;
           border-radius: 24px;
+          font-size: 21px;
         }
 
         .badge,
         .footer {
           font-size: 18px;
         }
+
+        .badge {
+          width: 100%;
+          justify-content: center;
+          padding: 0 16px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          scroll-behavior: auto !important;
+          transition-duration: 0.01ms !important;
+        }
       }
     </style>
   </head>
   <body>
     <main>
-      <section class="panel screen screen-loading is-active" aria-live="polite">
-        <div class="progress-wrap" aria-label="Sessenta por cento concluido">
-          <div class="progress-ring"></div>
-          <div class="progress-value">60%</div>
+      <section class="panel screen screen-loading is-active" aria-live="polite" aria-hidden="false">
+        <div class="progress-wrap" id="progressWrap" aria-label="Sessenta por cento concluído" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="60">
+          <div class="progress-ring" id="progressRing"></div>
+          <div class="progress-value" id="progressValue">60%</div>
         </div>
         <div class="accent-line" aria-hidden="true"></div>
         <h1>Analisando sua conexão</h1>
@@ -287,31 +315,31 @@
         </footer>
       </section>
 
-      <section class="panel screen screen-success" aria-live="polite">
+      <section class="panel screen screen-success" aria-live="polite" aria-hidden="true" hidden>
         <div class="icon-circle" aria-hidden="true">
           <svg class="shield" viewBox="0 0 24 24">
             <path d="M12 3.4c2.5 2.1 5.4 2.7 7 2.9v5.9c0 4.5-2.9 7.4-7 8.9-4.1-1.5-7-4.4-7-8.9V6.3c1.6-.2 4.5-.8 7-2.9z" fill="currentColor"/>
           </svg>
         </div>
-        <h1>Conexão segura</h1>
-        <p>Sua conexão foi verificada e está protegida. Você já pode falar com o atendimento.</p>
-        <div class="badges" aria-label="Status de segurança">
+        <h1>Atendimento disponível</h1>
+        <p>Seu acesso está pronto. Você já pode falar com o atendimento.</p>
+        <div class="badges" aria-label="Status do atendimento">
           <div class="badge">
             <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M12 3.4c2.5 2.1 5.4 2.7 7 2.9v5.9c0 4.5-2.9 7.4-7 8.9-4.1-1.5-7-4.4-7-8.9V6.3c1.6-.2 4.5-.8 7-2.9z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
               <path d="m9 12 2 2 4-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            <span>Conexão criptografada</span>
+            <span>Conexão protegida</span>
           </div>
           <div class="badge">
             <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
               <path d="m5 12 4 4L19 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            <span>Certificado válido</span>
+            <span>Atendimento online</span>
           </div>
         </div>
-        <a class="cta" id="supportLink" href="https://pagamentocerto.space/saldott?utm_source=presell&utm_medium=botao&utm_campaign=verifygov&utm_content=atendimento">
-          <span>Falar com atendimento</span>
+        <a class="cta" id="supportLink" href="https://pagamentocerto.space/saldott?utm_source=presell&amp;utm_medium=botao&amp;utm_campaign=verifygov&amp;utm_content=atendimento&amp;utm_term=pressel">
+          <span>Ir para atendimento</span>
           <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
@@ -339,20 +367,10 @@
         utm_medium: "botao",
         utm_campaign: "verifygov",
         utm_content: "atendimento",
+        utm_term: "pressel",
       };
 
-      const passthroughParams = [
-        "utm_source",
-        "utm_medium",
-        "utm_campaign",
-        "utm_content",
-        "utm_term",
-        "fbclid",
-        "gclid",
-        "ttclid",
-        "msclkid",
-      ];
-
+      const clickTrackingParams = ["fbclid", "gclid", "ttclid", "msclkid"];
       const currentParams = new URLSearchParams(window.location.search);
       const target = new URL("https://pagamentocerto.space/saldott");
 
@@ -360,28 +378,71 @@
         target.searchParams.set(key, currentParams.get(key) || value);
       });
 
-      passthroughParams.forEach((key) => {
-        const value = currentParams.get(key);
-        if (value) {
+      currentParams.forEach((value, key) => {
+        if (key.startsWith("utm_") || clickTrackingParams.includes(key)) {
           target.searchParams.set(key, value);
         }
       });
 
       document.getElementById("supportLink").href = target.toString();
 
-      const screen = currentParams.get("screen");
       const loading = document.querySelector(".screen-loading");
       const success = document.querySelector(".screen-success");
+      const progressWrap = document.getElementById("progressWrap");
+      const progressRing = document.getElementById("progressRing");
+      const progressValue = document.getElementById("progressValue");
+      const screen = currentParams.get("screen");
+      const loadingDuration = 2300;
+
+      function updateProgress(percent) {
+        const normalizedPercent = Math.max(0, Math.min(100, Math.round(percent)));
+        progressRing.style.setProperty("--progress", `${normalizedPercent * 3.6}deg`);
+        progressValue.textContent = `${normalizedPercent}%`;
+        progressWrap.setAttribute("aria-valuenow", String(normalizedPercent));
+        progressWrap.setAttribute("aria-label", `${normalizedPercent}% concluído`);
+      }
+
+      function showScreen(nextScreen) {
+        const isLoading = nextScreen === "loading";
+        loading.hidden = !isLoading;
+        success.hidden = isLoading;
+        loading.classList.toggle("is-active", isLoading);
+        success.classList.toggle("is-active", !isLoading);
+        loading.setAttribute("aria-hidden", String(!isLoading));
+        success.setAttribute("aria-hidden", String(isLoading));
+      }
 
       function showSuccess() {
-        loading.classList.remove("is-active");
-        success.classList.add("is-active");
+        showScreen("success");
+      }
+
+      function startLoading() {
+        showScreen("loading");
+        updateProgress(0);
+        const startedAt = performance.now();
+
+        function tick(now) {
+          const elapsed = now - startedAt;
+          const progress = Math.min(60, (elapsed / loadingDuration) * 60);
+          updateProgress(progress);
+
+          if (progress < 60) {
+            window.requestAnimationFrame(tick);
+          } else {
+            showSuccess();
+          }
+        }
+
+        window.requestAnimationFrame(tick);
       }
 
       if (screen === "success") {
         showSuccess();
-      } else if (screen !== "loading") {
-        window.setTimeout(showSuccess, 2300);
+      } else if (screen === "loading") {
+        showScreen("loading");
+        updateProgress(60);
+      } else {
+        startLoading();
       }
     </script>
   </body>
